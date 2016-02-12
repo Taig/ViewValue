@@ -6,13 +6,13 @@ Android View API helper
 **Support for basic widgets** (such as `TextView`)
 
 ````scala
-"io.taig.android.viewvalue" %% "core" % "1.1.0"
+"io.taig.android.viewvalue" %% "core" % "1.1.1"
 ````
 
 **Support for design library widgets** (such as `TextInputLayout`)
 
 ````scala
-"io.taig.android.viewvalue" %% "design" % "1.1.0"
+"io.taig.android.viewvalue" %% "design" % "1.1.1"
 ````
 
 ## Usage
