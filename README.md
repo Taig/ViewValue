@@ -6,13 +6,13 @@ Android View API helper
 **Support for basic widgets** (such as `TextView`)
 
 ````scala
-"io.taig.android.viewvalue" %% "core" % "1.0.0"
+"io.taig.android.viewvalue" %% "core" % "1.1.0"
 ````
 
-**Support for design support library widgets** (such as `TextInputLayout`)
+**Support for design library widgets** (such as `TextInputLayout`)
 
 ````scala
-"io.taig.android.viewvalue" %% "design" % "1.0.0"
+"io.taig.android.viewvalue" %% "design" % "1.1.0"
 ````
 
 ## Usage
@@ -38,7 +38,7 @@ tv.value = None
  - `CompoundButton`  
  **Injection & Extraction** → `Boolean` (Checked state)
  - `ImageView`  
- **Injection & Extraction** → `Drawable`
+ **Injection & Extraction** → `Drawable`  
  **Injection** → `Bitmap`, `Int`, `Uri`
  - `RadioGroup`  
  **Injection & Extraction** → `Int`, `Option[Int]` (Selected item id)
