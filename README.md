@@ -21,7 +21,7 @@ Android View API helper
 import android.widget.TextView
 import io.taig.android.viewvalue.syntax.all._
 
-val tv: TextView = ???
+val tv: TextView = new TextView( context )
 
 val c1 = tv.value[String]
 val c2 = tv.value[Option[String]]
@@ -35,10 +35,19 @@ tv.value = None
 
 ### Core
 
- - `CompoundButton` → `Boolean` (Checked state)
- - `RadioGroup` → `Int`, `Option[Int]` (Selected item id)
- - `TextView` → `String`, `Option[String]` (Text value)
+ - `CompoundButton`  
+ **Injection & Extraction** → `Boolean` (Checked state)
+ - `ImageView`  
+ **Injection & Extraction** → `Drawable`
+ **Injection** → `Bitmap`, `Int`, `Uri`
+ - `RadioGroup`  
+ **Injection & Extraction** → `Int`, `Option[Int]` (Selected item id)
+ - `TextView`  
+ **Injection & Extraction** → `String`, `Option[String]` (Text value)  
+ **Injection** → `Int` (Resource id)
 
 ### Design
 
- - `TextInputLayout` → `String`, `Option[String]` (Text value)
+ - `TextInputLayout`  
+ **Injection & Extraction** → `String`, `Option[String]` (Text value)  
+ **Injection** → `Int` (Resource id)
