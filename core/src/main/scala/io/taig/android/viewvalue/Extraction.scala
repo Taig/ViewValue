@@ -1,7 +1,8 @@
 package io.taig.android.viewvalue
 
+import android.graphics.drawable.Drawable
 import android.view.View
-import android.widget.{ CompoundButton, RadioGroup, TextView }
+import android.widget.{ ImageView, CompoundButton, RadioGroup, TextView }
 
 trait Extraction[-V, +T] {
     def extract( view: V ): T
@@ -19,6 +20,8 @@ object Extraction {
     }
 
     implicit val `Extraction[CompoundButton, Boolean]`: Extraction[CompoundButton, Boolean] = instance( _.isChecked )
+
+    implicit val `Extraction[ImageView, Drawable]`: Extraction[ImageView, Drawable] = instance( _.getDrawable )
 
     implicit val `Extraction[RadioGroup, Int]`: Extraction[RadioGroup, Int] = instance( _.getCheckedRadioButtonId )
 
