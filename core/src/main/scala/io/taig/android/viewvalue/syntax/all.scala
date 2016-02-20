@@ -1,7 +1,7 @@
 package io.taig.android.viewvalue.syntax
 
 trait all
-    extends feedback
+    extends error
     with value
 
 object all extends all

@@ -25,8 +25,8 @@ object Injection {
         override def inject( view: V, value: T ): Unit = f( view, value )
     }
 
-    implicit val injectionFeedbackTextView: Injection[Attribute.Feedback, TextView, Option[CharSequence]] = {
-        instance( ( textView, feedback ) ⇒ textView.setError( feedback.orNull ) )
+    implicit val injectionErrorTextView: Injection[Attribute.Error, TextView, Option[CharSequence]] = {
+        instance( ( textView, error ) ⇒ textView.setError( error.orNull ) )
     }
 
     implicit val injectionValueCompoundButtonBoolean: Injection[Attribute.Value, CompoundButton, Boolean] = {
