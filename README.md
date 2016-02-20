@@ -19,7 +19,7 @@ Android View API helper
 
 ````scala
 import android.widget.TextView
-import io.taig.android.viewvalue.syntax.all._
+import io.taig.android.viewvalue.implicits._
 
 val tv: TextView = new TextView( context )
 
@@ -29,6 +29,10 @@ val c2 = tv.value[Option[String]]
 tv.value = "foo"
 tv.value = Some( "foo" )
 tv.value = None
+
+tv.error = Some( "my error message" )
+tv.error = "my error message"
+tv.error = None
 ````
 
 ## Supported widgets
