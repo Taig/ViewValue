@@ -3,30 +3,45 @@ package io.taig.android.viewvalue
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.view.View
-import android.widget.{ ImageView, CompoundButton, RadioGroup, TextView }
+import android.widget.{ CompoundButton, ImageView, RadioGroup, TextView }
+import io.taig.android.viewvalue.functional.{ ContramapL, ContramapR }
+import io.taig.android.viewvalue.syntax.contramap._
+
+import scala.language.reflectiveCalls
 
 trait Injection[A <: Attribute, -V, -T] {
     def inject( view: V, value: T ): Unit
-
-    def contramapL[W <: View]( f: W ⇒ V ): Injection[A, W, T] = Injection.instance { ( view, value ) ⇒
-        inject( f( view ), value )
-    }
-
-    def contramapR[U]( f: U ⇒ T ): Injection[A, V, U] = Injection.instance { ( view, value ) ⇒
-        inject( view, f( value ) )
-    }
 }
 
 object Injection {
+    implicit def contramapLInjection[A <: Attribute] = new ContramapL[( { type λ[α, β] = Injection[A, α, β] } )#λ] {
+        override def contramapL[L, R, T]( fa: Injection[A, L, R] )( f: ( T, R ) ⇒ L ): Injection[A, T, R] = {
+            instance { ( view, value ) ⇒ fa.inject( f( view, value ), value ) }
+        }
+    }
+
+    implicit def contramapRInjection[A <: Attribute] = new ContramapR[( { type λ[α, β] = Injection[A, α, β] } )#λ] {
+        override def contramapL[L, R, T]( fa: Injection[A, L, R] )( f: ( L, T ) ⇒ R ): Injection[A, L, T] = {
+            instance { ( view, value ) ⇒ fa.inject( view, f( view, value ) ) }
+        }
+    }
+
     def apply[A <: Attribute, V, T]( implicit i: Injection[A, V, T] ): Injection[A, V, T] = i
 
     def instance[A <: Attribute, V, T]( f: ( V, T ) ⇒ Unit ): Injection[A, V, T] = new Injection[A, V, T] {
         override def inject( view: V, value: T ): Unit = f( view, value )
     }
 
-    implicit val injectionErrorTextView: Injection[Attribute.Error, TextView, Option[CharSequence]] = {
-        instance( ( textView, error ) ⇒ textView.setError( error.orNull ) )
+    implicit val injectionErrorTextViewCharSequence: Injection[Attribute.Error, TextView, CharSequence] = {
+        instance( _.setError( _ ) )
+    }
+
+    implicit val injectionErrorTextViewOptionCharSequence: Injection[Attribute.Error, TextView, Option[CharSequence]] = {
+        Injection[Attribute.Error, TextView, CharSequence].contramapR( ( _, error ) ⇒ error.orNull )
+    }
+
+    implicit val injectionErrorTextViewResource: Injection[Attribute.Error, TextView, Int] = {
+        Injection[Attribute.Error, TextView, CharSequence].contramapR( _.getContext.getString( _ ) )
     }
 
     implicit val injectionValueCompoundButtonBoolean: Injection[Attribute.Value, CompoundButton, Boolean] = {
@@ -62,11 +77,11 @@ object Injection {
         instance( _.setText( _ ) )
     }
 
-    implicit val injectionValueTextViewResource: Injection[Attribute.Value, TextView, Int] = {
-        instance( _.setText( _ ) )
+    implicit val injectionValueTextViewOptionCharSequence: Injection[Attribute.Value, TextView, Option[CharSequence]] = {
+        Injection[Attribute.Value, TextView, CharSequence].contramapR( ( _, error ) ⇒ error.orNull )
     }
 
-    implicit val injectionValueTextViewOptionCharSequence: Injection[Attribute.Value, TextView, Option[CharSequence]] = {
-        Injection[Attribute.Value, TextView, CharSequence].contramapR( _.orNull )
+    implicit val injectionValueTextViewResource: Injection[Attribute.Value, TextView, Int] = {
+        instance( _.setText( _ ) )
     }
 }

@@ -8,11 +8,7 @@ final class error[V <: View]( view: V ) {
         e.extract( view )
     }
 
-    def error_=( value: Option[CharSequence] )( implicit i: Injection[Attribute.Error, V, Option[CharSequence]] ): Unit = {
+    def error_=[T]( value: T )( implicit i: Injection[Attribute.Error, V, T] ): Unit = {
         i.inject( view, value )
-    }
-
-    def error_=( value: CharSequence )( implicit i: Injection[Attribute.Error, V, Option[CharSequence]] ): Unit = {
-        error = Option( value )
     }
 }

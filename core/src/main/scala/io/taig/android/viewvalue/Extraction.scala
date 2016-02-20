@@ -1,18 +1,29 @@
 package io.taig.android.viewvalue
 
 import android.graphics.drawable.Drawable
-import android.view.View
-import android.widget.{ ImageView, CompoundButton, RadioGroup, TextView }
+import android.widget.{ CompoundButton, ImageView, RadioGroup, TextView }
+import io.taig.android.viewvalue.functional.{ Contramap, Map }
+import io.taig.android.viewvalue.syntax.map._
+
+import scala.language.reflectiveCalls
 
 trait Extraction[A <: Attribute, -V, +T] {
     def extract( view: V ): T
-
-    def map[U]( f: T ⇒ U ): Extraction[A, V, U] = Extraction.instance( view ⇒ f( extract( view ) ) )
-
-    def contramap[W <: View]( f: W ⇒ V ): Extraction[A, W, T] = Extraction.instance( view ⇒ extract( f( view ) ) )
 }
 
 object Extraction {
+    implicit def contramapExtraction[A <: Attribute, T] = new Contramap[( { type λ[α] = Extraction[A, α, T] } )#λ] {
+        override def contramap[L, U]( fa: Extraction[A, L, T] )( f: U ⇒ L ): Extraction[A, U, T] = {
+            instance( view ⇒ fa.extract( f( view ) ) )
+        }
+    }
+
+    implicit def mapExtraction[A <: Attribute, V] = new Map[( { type λ[α] = Extraction[A, V, α] } )#λ] {
+        override def map[L, U]( fa: Extraction[A, V, L] )( f: L ⇒ U ): Extraction[A, V, U] = {
+            instance( view ⇒ f( fa.extract( view ) ) )
+        }
+    }
+
     def apply[A <: Attribute, V, T]( implicit e: Extraction[A, V, T] ): Extraction[A, V, T] = e
 
     def instance[A <: Attribute, V, T]( f: V ⇒ T ): Extraction[A, V, T] = new Extraction[A, V, T] {
