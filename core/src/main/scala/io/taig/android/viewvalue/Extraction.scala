@@ -4,38 +4,50 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.{ ImageView, CompoundButton, RadioGroup, TextView }
 
-trait Extraction[-V, +T] {
+trait Extraction[A <: Attribute, -V, +T] {
     def extract( view: V ): T
 
-    def map[U]( f: T ⇒ U ): Extraction[V, U] = Extraction.instance( view ⇒ f( extract( view ) ) )
+    def map[U]( f: T ⇒ U ): Extraction[A, V, U] = Extraction.instance( view ⇒ f( extract( view ) ) )
 
-    def contramap[W <: View]( f: W ⇒ V ): Extraction[W, T] = Extraction.instance( view ⇒ extract( f( view ) ) )
+    def contramap[W <: View]( f: W ⇒ V ): Extraction[A, W, T] = Extraction.instance( view ⇒ extract( f( view ) ) )
 }
 
 object Extraction {
-    def apply[V, T]( implicit e: Extraction[V, T] ): Extraction[V, T] = e
+    def apply[A <: Attribute, V, T]( implicit e: Extraction[A, V, T] ): Extraction[A, V, T] = e
 
-    def instance[V, T]( f: V ⇒ T ): Extraction[V, T] = new Extraction[V, T] {
+    def instance[A <: Attribute, V, T]( f: V ⇒ T ): Extraction[A, V, T] = new Extraction[A, V, T] {
         override def extract( view: V ): T = f( view )
     }
 
-    implicit val `Extraction[CompoundButton, Boolean]`: Extraction[CompoundButton, Boolean] = instance( _.isChecked )
+    implicit val extractionFeedbackTextView: Extraction[Attribute.Feedback, TextView, Option[CharSequence]] = {
+        instance[Attribute.Feedback, TextView, CharSequence]( _.getError ).map( Option( _ ) )
+    }
 
-    implicit val `Extraction[ImageView, Drawable]`: Extraction[ImageView, Drawable] = instance( _.getDrawable )
+    implicit val extractionValueCompoundButtonBoolean: Extraction[Attribute.Value, CompoundButton, Boolean] = {
+        instance( _.isChecked )
+    }
 
-    implicit val `Extraction[RadioGroup, Int]`: Extraction[RadioGroup, Int] = instance( _.getCheckedRadioButtonId )
+    implicit val extractionValueImageViewDrawable: Extraction[Attribute.Value, ImageView, Drawable] = {
+        instance( _.getDrawable )
+    }
 
-    implicit val `Extraction[RadioGroup, Option[Int]]`: Extraction[RadioGroup, Option[Int]] = {
-        Extraction[RadioGroup, Int].map {
+    implicit val extractionValueRadioGroupInt: Extraction[Attribute.Value, RadioGroup, Int] = {
+        instance( _.getCheckedRadioButtonId )
+    }
+
+    implicit val extractionValueRadioGroupOptionInt: Extraction[Attribute.Value, RadioGroup, Option[Int]] = {
+        Extraction[Attribute.Value, RadioGroup, Int].map {
             case -1 ⇒ None
             case id ⇒ Some( id )
         }
     }
 
-    implicit val `Extraction[TextView, String]`: Extraction[TextView, String] = instance( _.getText.toString )
+    implicit val extractionValueTextViewString: Extraction[Attribute.Value, TextView, String] = {
+        instance( _.getText.toString )
+    }
 
-    implicit val `Extraction[TextView, Option[String]]`: Extraction[TextView, Option[String]] = {
-        Extraction[TextView, String].map {
+    implicit val extractionValueTextViewOptionString: Extraction[Attribute.Value, TextView, Option[String]] = {
+        Extraction[Attribute.Value, TextView, String].map {
             case text if text.length == 0 ⇒ None
             case text                     ⇒ Some( text.toString )
         }
