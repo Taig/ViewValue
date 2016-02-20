@@ -39,19 +39,32 @@ tv.error = None
 
 ### Core
 
- - `CompoundButton`  
- **Injection & Extraction** → `Boolean` (Checked state)
- - `ImageView`  
- **Injection & Extraction** → `Drawable`  
- **Injection** → `Bitmap`, `Int`, `Uri`
- - `RadioGroup`  
- **Injection & Extraction** → `Int`, `Option[Int]` (Selected item id)
- - `TextView`  
- **Injection & Extraction** → `String`, `Option[String]` (Text value)  
- **Injection** → `Int` (Resource id)
+#### Value
+
+| Widget | Injections | Extractions | Description |
+| --- | --- | --- | --- |
+| `CompoundButton` | `Boolean` | `Boolean` | Checked state |
+| `ImageView` | `Drawable`, `Bitmap`, `Int` (resource), `Uri` | `Drawable` | Image drawable (foreground) |
+| `RadioGroup` | `Int`, `Option[Int]` | `Int`, `Option[Int]` | Selected item id |
+| `TextView` | `CharSequence`, `Option[CharSequence]`, `Int` (resource) | `String`, `Option[String]` | Text value |
+
+#### Error
+
+| Widget | Injections | Extractions | Description |
+| --- | --- | --- | --- |
+| `TextView` | `CharSequence`, `Option[CharSequence]`, `Int` (resource) | `Option[String]` | Error value |
 
 ### Design
 
- - `TextInputLayout`  
- **Injection & Extraction** → `String`, `Option[String]` (Text value)  
- **Injection** → `Int` (Resource id)
+#### Value
+
+| Widget | Injections | Extractions | Description |
+| --- | --- | --- | --- |
+| `TextInputLayout` | `CharSequence`, `Option[CharSequence]`, `Int` (resource) | `String`, `Option[String]` | Text value of the inner `EditText` |
+
+#### Error
+
+| Widget | Injections | Extractions | Description |
+| --- | --- | --- | --- |
+| `TextInputLayout` | `CharSequence`, `Option[CharSequence]`, `Int` (resource) | `Option[String]` | Error value |
+| `TextView` | `CharSequence`, `Option[CharSequence]`, `Int` (resource) | `Option[String]` | Error value will be forwarded to parent `TextInputLayout` (if available) |
