@@ -26,7 +26,7 @@ object Injection {
     }
 
     implicit val injectionFeedbackTextView: Injection[Attribute.Feedback, TextView, Option[CharSequence]] = {
-        instance( ( textView, error ) ⇒ textView.setError( error.orNull ) )
+        instance( ( textView, feedback ) ⇒ textView.setError( feedback.orNull ) )
     }
 
     implicit val injectionValueCompoundButtonBoolean: Injection[Attribute.Value, CompoundButton, Boolean] = {

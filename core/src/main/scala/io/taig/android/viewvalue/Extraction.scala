@@ -19,8 +19,8 @@ object Extraction {
         override def extract( view: V ): T = f( view )
     }
 
-    implicit val extractionFeedbackTextView: Extraction[Attribute.Feedback, TextView, Option[CharSequence]] = {
-        instance[Attribute.Feedback, TextView, CharSequence]( _.getError ).map( Option( _ ) )
+    implicit val extractionFeedbackTextView: Extraction[Attribute.Feedback, TextView, Option[String]] = {
+        instance[Attribute.Feedback, TextView, CharSequence]( _.getError ).map( Option( _ ).map( _.toString ) )
     }
 
     implicit val extractionValueCompoundButtonBoolean: Extraction[Attribute.Value, CompoundButton, Boolean] = {

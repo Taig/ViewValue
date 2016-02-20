@@ -6,6 +6,21 @@ import android.widget.TextView
 import io.taig.android.viewvalue.{ Attribute, Injection }
 
 trait injection {
+    implicit val injectionFeedbackTextInputLayout: Injection[Attribute.Feedback, TextInputLayout, Option[CharSequence]] = {
+        Injection.instance( ( textInputLayout, feedback ) ⇒ textInputLayout.setError( feedback.orNull ) )
+    }
+
+    implicit val injectionFeedbackTextViewParent: Injection[Attribute.Feedback, TextView, Option[CharSequence]] = {
+        Injection.instance { ( textView, feedback ) ⇒
+            textView.getParent match {
+                case textInputLayout: TextInputLayout ⇒
+                    injectionFeedbackTextInputLayout.inject( textInputLayout, feedback )
+                case _ ⇒
+                    Injection.injectionFeedbackTextView.inject( textView, feedback )
+            }
+        }
+    }
+
     implicit val injectionValueTextInputLayoutCharSequence: Injection[Attribute.Value, TextInputLayout, CharSequence] = {
         Injection[Attribute.Value, TextView, CharSequence].contramapL( _.getEditText )
     }

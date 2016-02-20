@@ -4,7 +4,7 @@ import android.view.View
 import io.taig.android.viewvalue.{ Attribute, Extraction, Injection }
 
 final class feedback[V <: View]( view: V ) {
-    def feedback( implicit e: Extraction[Attribute.Feedback, V, Option[CharSequence]] ): Option[CharSequence] = {
+    def feedback( implicit e: Extraction[Attribute.Feedback, V, Option[String]] ): Option[String] = {
         e.extract( view )
     }
 
