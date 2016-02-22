@@ -7,8 +7,8 @@ final class value[V <: View]( view: V ) {
     def value: Builder = new Builder
 
     class Builder {
-        def apply[T]( implicit e: Extraction[Attribute.Value, V, T] ): T = e.extract( view )
+        def apply[T]( implicit e: Extraction.Value[V, T] ): T = e.extract( view )
     }
 
-    def value_=[T]( value: T )( implicit i: Injection[Attribute.Value, V, T] ): Unit = i.inject( view, value )
+    def value_=[T]( value: T )( implicit i: Injection.Value[V, T] ): Unit = i.inject( view, value )
 }

@@ -3,6 +3,7 @@ package io.taig.android.viewvalue
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.view.View
 import android.widget.{ CompoundButton, ImageView, RadioGroup, TextView }
 import io.taig.android.viewvalue.functional.{ ContramapL, ContramapR }
 import io.taig.android.viewvalue.syntax.contramap._
@@ -13,7 +14,7 @@ trait Injection[A <: Attribute, -V, -T] {
     def inject( view: V, value: T ): Unit
 }
 
-object Injection {
+object Injection extends Injection0 {
     implicit def contramapLInjection[A <: Attribute] = new ContramapL[( { type λ[α, β] = Injection[A, α, β] } )#λ] {
         override def contramapL[L, R, T]( fa: Injection[A, L, R] )( f: ( T, R ) ⇒ L ): Injection[A, T, R] = {
             instance { ( view, value ) ⇒ fa.inject( f( view, value ), value ) }
@@ -32,56 +33,48 @@ object Injection {
         override def inject( view: V, value: T ): Unit = f( view, value )
     }
 
-    implicit val injectionErrorTextViewCharSequence: Injection[Attribute.Error, TextView, CharSequence] = {
-        instance( _.setError( _ ) )
+    implicit val injectionErrorTextViewOptionCharSequence: Error[TextView, Option[CharSequence]] = {
+        instance( ( view, error ) ⇒ view.setError( error.orNull ) )
     }
 
-    implicit val injectionErrorTextViewOptionCharSequence: Injection[Attribute.Error, TextView, Option[CharSequence]] = {
-        Injection[Attribute.Error, TextView, CharSequence].contramapR( ( _, error ) ⇒ error.orNull )
-    }
+    implicit val injectionValueCompoundButtonBoolean: Value[CompoundButton, Boolean] = instance( _.setChecked( _ ) )
 
-    implicit val injectionErrorTextViewResource: Injection[Attribute.Error, TextView, Int] = {
-        Injection[Attribute.Error, TextView, CharSequence].contramapR( _.getContext.getString( _ ) )
-    }
+    implicit val injectionValueImageViewBitmap: Value[ImageView, Bitmap] = instance( _.setImageBitmap( _ ) )
 
-    implicit val injectionValueCompoundButtonBoolean: Injection[Attribute.Value, CompoundButton, Boolean] = {
-        instance( _.setChecked( _ ) )
-    }
+    implicit val injectionValueImageViewDrawable: Value[ImageView, Drawable] = instance( _.setImageDrawable( _ ) )
 
-    implicit val injectionValueImageViewBitmap: Injection[Attribute.Value, ImageView, Bitmap] = {
-        instance( _.setImageBitmap( _ ) )
-    }
+    implicit val injectionValueImageViewResource: Value[ImageView, Int] = instance( _.setImageResource( _ ) )
 
-    implicit val injectionValueImageViewDrawable: Injection[Attribute.Value, ImageView, Drawable] = {
-        instance( _.setImageDrawable( _ ) )
-    }
+    implicit val injectionValueImageViewUri: Value[ImageView, Uri] = instance( _.setImageURI( _ ) )
 
-    implicit val injectionValueImageViewResource: Injection[Attribute.Value, ImageView, Int] = {
-        instance( _.setImageResource( _ ) )
-    }
+    implicit val injectionValueRadioGroupInt: Value[RadioGroup, Int] = instance( _.check( _ ) )
 
-    implicit val injectionValueImageViewUri: Injection[Attribute.Value, ImageView, Uri] = {
-        instance( _.setImageURI( _ ) )
-    }
-
-    implicit val injectionValueRadioGroupInt: Injection[Attribute.Value, RadioGroup, Int] = {
-        instance( _.check( _ ) )
-    }
-
-    implicit val injectionValueRadioGroupOptionInt: Injection[Attribute.Value, RadioGroup, Option[Int]] = instance {
+    implicit val injectionValueRadioGroupOptionInt: Value[RadioGroup, Option[Int]] = instance {
         case ( view, Some( value ) ) ⇒ view.check( value )
         case ( view, None )          ⇒ view.clearCheck()
     }
 
-    implicit val injectionValueTextViewCharSequence: Injection[Attribute.Value, TextView, CharSequence] = {
+    implicit val injectionValueTextViewCharSequence: Value[TextView, CharSequence] = {
         instance( _.setText( _ ) )
     }
 
-    implicit val injectionValueTextViewOptionCharSequence: Injection[Attribute.Value, TextView, Option[CharSequence]] = {
+    implicit val injectionValueTextViewOptionCharSequence: Value[TextView, Option[CharSequence]] = {
         Injection[Attribute.Value, TextView, CharSequence].contramapR( ( _, error ) ⇒ error.orNull )
     }
 
-    implicit val injectionValueTextViewResource: Injection[Attribute.Value, TextView, Int] = {
-        instance( _.setText( _ ) )
+    implicit val injectionValueTextViewResource: Value[TextView, Int] = instance( _.setText( _ ) )
+}
+
+trait Injection0 {
+    type Error[V, T] = Injection[Attribute.Error, V, T]
+
+    type Value[V, T] = Injection[Attribute.Value, V, T]
+
+    implicit def injectionErrorViewValue[V, T]( implicit i: Error[V, Option[T]] ): Error[V, T] = {
+        i.contramapR( ( _, error ) ⇒ Option( error ) )
+    }
+
+    implicit def injectionErrorViewResource[V <: View]( implicit i: Error[V, String] ): Error[V, Int] = {
+        i.contramapR( _.getContext.getString( _ ) )
     }
 }

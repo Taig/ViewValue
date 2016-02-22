@@ -1,14 +1,10 @@
 package io.taig.android.viewvalue.ops
 
 import android.view.View
-import io.taig.android.viewvalue.{ Attribute, Extraction, Injection }
+import io.taig.android.viewvalue.{ Extraction, Injection }
 
 final class error[V <: View]( view: V ) {
-    def error( implicit e: Extraction[Attribute.Error, V, Option[String]] ): Option[String] = {
-        e.extract( view )
-    }
+    def error( implicit e: Extraction.Error[V] ): Option[String] = e.extract( view )
 
-    def error_=[T]( value: T )( implicit i: Injection[Attribute.Error, V, T] ): Unit = {
-        i.inject( view, value )
-    }
+    def error_=[T]( value: T )( implicit i: Injection.Error[V, T] ): Unit = i.inject( view, value )
 }

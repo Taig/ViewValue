@@ -12,6 +12,10 @@ trait Extraction[A <: Attribute, -V, +T] {
 }
 
 object Extraction {
+    type Error[V] = Extraction[Attribute.Error, V, Option[String]]
+
+    type Value[V, T] = Extraction[Attribute.Value, V, T]
+
     implicit def contramapExtraction[A <: Attribute, T] = new Contramap[( { type λ[α] = Extraction[A, α, T] } )#λ] {
         override def contramap[L, U]( fa: Extraction[A, L, T] )( f: U ⇒ L ): Extraction[A, U, T] = {
             instance( view ⇒ fa.extract( f( view ) ) )
@@ -30,34 +34,26 @@ object Extraction {
         override def extract( view: V ): T = f( view )
     }
 
-    implicit val extractionErrorTextView: Extraction[Attribute.Error, TextView, Option[String]] = {
+    implicit val extractionErrorTextView: Error[TextView] = {
         instance[Attribute.Error, TextView, CharSequence]( _.getError ).map( Option( _ ).map( _.toString ) )
     }
 
-    implicit val extractionValueCompoundButtonBoolean: Extraction[Attribute.Value, CompoundButton, Boolean] = {
-        instance( _.isChecked )
-    }
+    implicit val extractionValueCompoundButtonBoolean: Value[CompoundButton, Boolean] = instance( _.isChecked )
 
-    implicit val extractionValueImageViewDrawable: Extraction[Attribute.Value, ImageView, Drawable] = {
-        instance( _.getDrawable )
-    }
+    implicit val extractionValueImageViewDrawable: Value[ImageView, Drawable] = instance( _.getDrawable )
 
-    implicit val extractionValueRadioGroupInt: Extraction[Attribute.Value, RadioGroup, Int] = {
-        instance( _.getCheckedRadioButtonId )
-    }
+    implicit val extractionValueRadioGroupInt: Value[RadioGroup, Int] = instance( _.getCheckedRadioButtonId )
 
-    implicit val extractionValueRadioGroupOptionInt: Extraction[Attribute.Value, RadioGroup, Option[Int]] = {
+    implicit val extractionValueRadioGroupOptionInt: Value[RadioGroup, Option[Int]] = {
         Extraction[Attribute.Value, RadioGroup, Int].map {
             case -1 ⇒ None
             case id ⇒ Some( id )
         }
     }
 
-    implicit val extractionValueTextViewString: Extraction[Attribute.Value, TextView, String] = {
-        instance( _.getText.toString )
-    }
+    implicit val extractionValueTextViewString: Value[TextView, String] = instance( _.getText.toString )
 
-    implicit val extractionValueTextViewOptionString: Extraction[Attribute.Value, TextView, Option[String]] = {
+    implicit val extractionValueTextViewOptionString: Value[TextView, Option[String]] = {
         Extraction[Attribute.Value, TextView, String].map {
             case text if text.length == 0 ⇒ None
             case text                     ⇒ Some( text.toString )
