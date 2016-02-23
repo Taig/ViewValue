@@ -17,8 +17,7 @@ lazy val core = project
     )
 
 lazy val design = project
-    .androidBuildWith( core )
-    .settings( Settings.common ++ Settings.android )
+    .settings( androidBuildAar ++ Settings.common ++ Settings.android )
     .settings(
         libraryDependencies ++=
             "com.android.support" % "design" % "23.1.1" ::
