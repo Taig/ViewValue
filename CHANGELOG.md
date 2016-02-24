@@ -1,3 +1,7 @@
+**1.2.0**
+
+- Support for error message injections/extractions
+
 **1.1.1**
 
  - Enforce Java 7 compilation
