@@ -20,7 +20,7 @@ lazy val design = project
     .settings( androidBuildAar ++ Settings.common ++ Settings.android )
     .settings(
         libraryDependencies ++=
-            "com.android.support" % "design" % "23.1.1" ::
+            "com.android.support" % "design" % "23.2.0" ::
             Nil,
         minSdkVersion := "7",
         packageForR := s"${organization.value}.design.resource"
