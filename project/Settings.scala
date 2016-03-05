@@ -8,7 +8,7 @@ object Settings {
             "-source" :: "1.7" ::
             "-target" :: "1.7" ::
             Nil,
-        organization := "io.taig.android.viewvalue",
+        organization := "io.taig.android",
         scalaVersion := "2.11.7",
         scalacOptions ++=
             "-feature" ::

@@ -1,3 +1,7 @@
+**1.2.1**
+
+- Upgraded to support library 23.2.0
+
 **1.2.0**
 
 - Support for error message injections/extractions
