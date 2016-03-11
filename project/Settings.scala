@@ -9,7 +9,7 @@ object Settings {
             "-target" :: "1.7" ::
             Nil,
         organization := "io.taig.android",
-        scalaVersion := "2.11.7",
+        scalaVersion := "2.11.8",
         scalacOptions ++=
             "-feature" ::
             "-deprecation" ::
