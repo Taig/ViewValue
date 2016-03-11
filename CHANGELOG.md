@@ -1,3 +1,7 @@
+**1.2.2**
+
+- Upgraded to support library 23.2.1 and Scala 2.11.8
+
 **1.2.1**
 
 - Upgraded to support library 23.2.0
