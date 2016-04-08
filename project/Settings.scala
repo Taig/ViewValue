@@ -1,9 +1,10 @@
 import android.Keys._
 import io.taig.sbt.sonatype.Plugin.autoImport._
+import sbt._
 import sbt.Keys._
 
 object Settings {
-    val common = Seq(
+    val common = Def.settings(
         javacOptions ++=
             "-source" :: "1.7" ::
             "-target" :: "1.7" ::
@@ -17,7 +18,7 @@ object Settings {
         githubProject := "viewvalue"
     )
     
-    val android = Seq(
+    val android = Def.settings(
         platformTarget := "android-23",
         typedResources := false
     )
