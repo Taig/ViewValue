@@ -21,7 +21,7 @@ lazy val design = project
     .settings( androidBuildAar ++ Settings.common ++ Settings.android )
     .settings(
         libraryDependencies ++=
-            "com.android.support" % "design" % "23.4.0" ::
+            "com.android.support" % "design" % "24.0.0" ::
             Nil,
         minSdkVersion := "7",
         name := "viewvalue-design",
