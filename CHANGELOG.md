@@ -1,3 +1,7 @@
+**1.2.5**
+
+- Upgraded to support library 24.0.0
+
 **1.2.4**
 
 - Upgraded to support library 23.4.0
