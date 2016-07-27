@@ -1,8 +1,7 @@
 lazy val root = project.in( file( "." ) )
     .settings( Settings.common )
     .settings(
-        name := "ViewValue",
-        normalizedName := "viewvalue",
+        name := "viewvalue",
         publish := (),
         publishLocal := (),
         publishArtifact := false
@@ -21,7 +20,7 @@ lazy val design = project
     .settings( androidBuildAar ++ Settings.common ++ Settings.android )
     .settings(
         libraryDependencies ++=
-            "com.android.support" % "design" % "24.0.0" ::
+            "com.android.support" % "design" % "24.1.1" ::
             Nil,
         minSdkVersion := "7",
         name := "viewvalue-design",
