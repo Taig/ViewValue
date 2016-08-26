@@ -15,24 +15,29 @@ trait injection {
         instance { ( textView, error ) ⇒
             textView.getParent match {
                 case textInputLayout: TextInputLayout ⇒
-                    injectionErrorTextInputLayoutOptionCharSequence.inject( textInputLayout, error )
-                case _ ⇒ injectionErrorTextViewOptionCharSequence.inject( textView, error )
+                    injectionErrorTextInputLayoutOptionCharSequence
+                        .inject( textInputLayout, error )
+                case _ ⇒ injectionErrorTextViewOptionCharSequence
+                    .inject( textView, error )
             }
         }
     }
 
     implicit val injectionValueTextInputLayoutCharSequence: Injection.Value[TextInputLayout, CharSequence] = {
-        Injection[Attribute.Value, TextView, CharSequence].contramapL { ( textInputLayout, _ ) ⇒
-            textInputLayout.getEditText
-        }
+        Injection[Attribute.Value, TextView, CharSequence]
+            .contramapL { ( textInputLayout, _ ) ⇒
+                textInputLayout.getEditText
+            }
     }
 
     implicit val injectionValueTextInputLayoutResource: Injection.Value[TextInputLayout, Int] = {
-        Injection[Attribute.Value, TextInputLayout, CharSequence].contramapR( _.getContext.getString( _ ) )
+        Injection[Attribute.Value, TextInputLayout, CharSequence]
+            .contramapR( _.getContext.getString( _ ) )
     }
 
     implicit val injectionValueTextInputLayoutOptionCharSequence: Injection.Value[TextInputLayout, Option[CharSequence]] = {
-        Injection[Attribute.Value, TextView, Option[CharSequence]].contramapL( ( textView, _ ) ⇒ textView.getEditText )
+        Injection[Attribute.Value, TextView, Option[CharSequence]]
+            .contramapL( ( textView, _ ) ⇒ textView.getEditText )
     }
 }
 

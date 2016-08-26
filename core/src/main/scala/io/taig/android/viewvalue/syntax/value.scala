@@ -6,7 +6,9 @@ import io.taig.android.viewvalue.ops
 import scala.language.implicitConversions
 
 trait value {
-    implicit def viewValueSyntax[V <: View]( view: V ): ops.value[V] = new ops.value( view )
+    implicit def viewValueSyntax[V <: View]( view: V ): ops.value[V] = {
+        new ops.value( view )
+    }
 }
 
 object value extends value
