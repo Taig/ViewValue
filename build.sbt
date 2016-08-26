@@ -11,8 +11,7 @@ lazy val root = project.in( file( "." ) )
 lazy val core = project
     .settings( androidBuildAar ++ Settings.common ++ Settings.android )
     .settings(
-        minSdkVersion := "1",
-        name := "viewvalue-core"
+        minSdkVersion := "1"
     )
 
 lazy val design = project
@@ -22,6 +21,5 @@ lazy val design = project
         libraryDependencies ++=
             "com.android.support" % "design" % "24.2.0" ::
             Nil,
-        minSdkVersion := "9",
-        name := "viewvalue-design"
+        minSdkVersion := "9"
     )

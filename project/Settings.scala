@@ -9,6 +9,7 @@ object Settings {
             "-source" :: "1.7" ::
             "-target" :: "1.7" ::
             Nil,
+        name := s"viewvalue-${name.value}",
         organization := "io.taig.android",
         scalaVersion := "2.11.8",
         scalacOptions ++=
@@ -19,7 +20,7 @@ object Settings {
     )
     
     val android = Def.settings(
-        platformTarget := "android-23",
+        platformTarget := "android-24",
         typedResources := false
     )
 }
