@@ -1,18 +1,19 @@
 # ViewValue
-Android View API helper
+
+> Android View API helper
 
 ## Dependencies
 
 **Support for basic widgets** (such as `TextView`)
 
 ````scala
-"io.taig.android" %% "viewvalue-core" % "1.2.6"
+"io.taig.android" %% "viewvalue-core" % "1.3.0"
 ````
 
 **Support for design library widgets** (such as `TextInputLayout`)
 
 ````scala
-"io.taig.android" %% "viewvalue-design" % "1.2.6"
+"io.taig.android" %% "viewvalue-design" % "1.3.0"
 ````
 
 ## Usage

@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.3.0
+
+_2016-08-26_
+
+ * Upgrade to Android support library 24.2.0
+ * Upgrade sbt to 0.13.12
+ * Upgrade to sbt-android 1.6.14
+ * Increase minSdkVersion from 7 to 9
+ * `design.implicits` no longer extends `core.implicits`
+ * Set platform target to 24
+ * Use default location for R classes
+
 ## 1.2.5
 
  - Upgraded to support library 24.0.0
