@@ -14,12 +14,12 @@ trait extraction {
     }
 
     implicit val extractionErrorTextViewParent: Error[TextView] = {
-        Extraction.instance { textView ⇒
-            textView.getParent match {
-                case textInputLayout: TextInputLayout ⇒
-                    extractionErrorTextInputLayout.extract( textInputLayout )
-                case _ ⇒
-                    extractionErrorTextView.extract( textView )
+        Extraction.instance { view ⇒
+            findParentTextInputLayout( view ) match {
+                case Some( view ) ⇒
+                    extractionErrorTextInputLayout.extract( view )
+                case None ⇒
+                    extractionErrorTextView.extract( view )
             }
         }
     }

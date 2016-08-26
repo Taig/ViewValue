@@ -8,17 +8,21 @@ import io.taig.android.viewvalue.Injection._
 
 trait injection {
     implicit val injectionErrorTextInputLayoutOptionCharSequence: Error[TextInputLayout, Option[CharSequence]] = {
-        instance( ( view, error ) ⇒ view.setError( error.orNull ) )
+        instance { ( view, error ) ⇒
+            view.setErrorEnabled( error.isDefined )
+            view.setError( error.orNull )
+        }
     }
 
     implicit val injectionErrorTextViewOptionCharSequenceParent: Error[TextView, Option[CharSequence]] = {
-        instance { ( textView, error ) ⇒
-            textView.getParent match {
-                case textInputLayout: TextInputLayout ⇒
+        instance { ( view, error ) ⇒
+            findParentTextInputLayout( view ) match {
+                case Some( view ) ⇒
                     injectionErrorTextInputLayoutOptionCharSequence
-                        .inject( textInputLayout, error )
-                case _ ⇒ injectionErrorTextViewOptionCharSequence
-                    .inject( textView, error )
+                        .inject( view, error )
+                case None ⇒
+                    injectionErrorTextViewOptionCharSequence
+                        .inject( view, error )
             }
         }
     }
