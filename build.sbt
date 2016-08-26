@@ -23,7 +23,7 @@ lazy val design = project
         libraryDependencies ++=
             "com.android.support" % "design" % "24.2.0" ::
             Nil,
-        minSdkVersion := "7",
+        minSdkVersion := "9",
         name := "viewvalue-design",
         packageForR := s"${organization.value}.design.resource"
     )
