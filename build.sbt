@@ -12,8 +12,7 @@ lazy val core = project
     .settings( androidBuildAar ++ Settings.common ++ Settings.android )
     .settings(
         minSdkVersion := "1",
-        name := "viewvalue-core",
-        packageForR := s"${organization.value}.resource"
+        name := "viewvalue-core"
     )
 
 lazy val design = project
@@ -24,6 +23,5 @@ lazy val design = project
             "com.android.support" % "design" % "24.2.0" ::
             Nil,
         minSdkVersion := "9",
-        name := "viewvalue-design",
-        packageForR := s"${organization.value}.design.resource"
+        name := "viewvalue-design"
     )
