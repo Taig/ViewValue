@@ -17,7 +17,8 @@ lazy val core = project
     )
 
 lazy val design = project
-    .settings( androidBuildAar ++ Settings.common ++ Settings.android )
+    .androidBuildWith( core )
+    .settings( Settings.common ++ Settings.android )
     .settings(
         libraryDependencies ++=
             "com.android.support" % "design" % "24.2.0" ::
@@ -26,4 +27,3 @@ lazy val design = project
         name := "viewvalue-design",
         packageForR := s"${organization.value}.design.resource"
     )
-    .dependsOn( core )
