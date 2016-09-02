@@ -7,13 +7,13 @@
 **Support for basic widgets** (such as `TextView`)
 
 ````scala
-"io.taig.android" %% "viewvalue-core" % "1.3.0"
+"io.taig.android" %% "viewvalue-core" % "1.3.1"
 ````
 
 **Support for design library widgets** (such as `TextInputLayout`)
 
 ````scala
-"io.taig.android" %% "viewvalue-design" % "1.3.0"
+"io.taig.android" %% "viewvalue-design" % "1.3.1"
 ````
 
 ## Usage
