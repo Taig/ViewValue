@@ -9,13 +9,15 @@ lazy val root = project.in( file( "." ) )
     .aggregate( core, design )
 
 lazy val core = project
-    .settings( androidBuildAar ++ Settings.common ++ Settings.android )
+    .enablePlugins( AndroidLib )
+    .settings( Settings.common ++ Settings.android )
     .settings(
         minSdkVersion := "1"
     )
 
 lazy val design = project
-    .settings( androidBuildAar ++ Settings.common ++ Settings.android )
+    .enablePlugins( AndroidLib )
+    .settings( Settings.common ++ Settings.android )
     .settings(
         libraryDependencies ++=
             "com.android.support" % "design" % "24.2.0" ::
