@@ -5,22 +5,19 @@ import sbt.Keys._
 
 object Settings {
     val common = Def.settings(
+        githubProject := "viewvalue",
         javacOptions ++=
             "-source" :: "1.7" ::
             "-target" :: "1.7" ::
             Nil,
         name := s"viewvalue-${name.value}",
         organization := "io.taig.android",
+        platformTarget := "android-24",
         scalaVersion := "2.11.8",
         scalacOptions ++=
             "-feature" ::
             "-deprecation" ::
             Nil,
-        githubProject := "viewvalue"
-    )
-    
-    val android = Def.settings(
-        platformTarget := "android-24",
         typedResources := false
     )
 }
