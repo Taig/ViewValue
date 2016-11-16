@@ -23,7 +23,7 @@ lazy val design = project
     .settings( Settings.common ++ Settings.android )
     .settings(
         libraryDependencies ++=
-            "com.android.support" % "design" % "24.2.1" ::
+            "com.android.support" % "design" % "25.0.1" ::
             Nil,
         minSdkVersion := "9"
     )
