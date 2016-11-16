@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.4.1
+
+_2016-11-16_
+
+ * Fix root module `implicits` definition
+
 ## 1.4.0
 
 _2016-11-16_
