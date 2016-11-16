@@ -2,10 +2,11 @@ package io.taig.android.viewvalue.design
 
 import android.support.design.widget.TextInputLayout
 import android.widget.TextView
-import io.taig.android.viewvalue.syntax.contramap._
-import io.taig.android.viewvalue.syntax.map._
-import io.taig.android.viewvalue.{ Attribute, Extraction }
-import io.taig.android.viewvalue.Extraction._
+import io.taig.android.viewvalue.base.extraction._
+import io.taig.android.viewvalue.core.syntax.contramap._
+import io.taig.android.viewvalue.core.syntax.map._
+import io.taig.android.viewvalue.core.{ Attribute, Extraction }
+import io.taig.android.viewvalue.core.Extraction._
 
 trait extraction {
     implicit val extractionErrorTextInputLayout: Error[TextInputLayout] = {

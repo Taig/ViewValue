@@ -1,4 +1,4 @@
-package io.taig.android.viewvalue.functional
+package io.taig.android.viewvalue.core.functional
 
 import scala.language.higherKinds
 

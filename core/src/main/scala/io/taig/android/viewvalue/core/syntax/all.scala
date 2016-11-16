@@ -1,4 +1,4 @@
-package io.taig.android.viewvalue.syntax
+package io.taig.android.viewvalue.core.syntax
 
 trait all
     extends contramap

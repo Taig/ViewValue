@@ -6,7 +6,7 @@ lazy val root = project.in( file( "." ) )
         publishLocal := (),
         publishArtifact := false
     )
-    .aggregate( core, design )
+    .aggregate( core, base, design )
 
 lazy val core = project
     .enablePlugins( AndroidLib )
@@ -14,6 +14,11 @@ lazy val core = project
     .settings(
         minSdkVersion := "1"
     )
+
+lazy val base = project
+    .enablePlugins( AndroidLib )
+    .settings( Settings.common ++ Settings.android )
+    .dependsOn( core )
 
 lazy val design = project
     .enablePlugins( AndroidLib )
@@ -24,4 +29,4 @@ lazy val design = project
             Nil,
         minSdkVersion := "9"
     )
-    .dependsOn( core )
+    .dependsOn( base )

@@ -1,7 +1,7 @@
-package io.taig.android.viewvalue.ops
+package io.taig.android.viewvalue.core.operation
 
 import android.view.View
-import io.taig.android.viewvalue.{ Attribute, Extraction, Injection }
+import io.taig.android.viewvalue.core.{ Attribute, Extraction, Injection }
 
 final class value[V <: View]( view: V ) {
     def value: Builder = new Builder

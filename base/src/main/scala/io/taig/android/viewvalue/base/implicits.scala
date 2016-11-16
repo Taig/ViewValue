@@ -1,4 +1,4 @@
-package io.taig.android.viewvalue.design
+package io.taig.android.viewvalue.base
 
 trait implicits
     extends extraction

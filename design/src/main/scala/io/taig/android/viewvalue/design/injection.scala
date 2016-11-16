@@ -2,9 +2,10 @@ package io.taig.android.viewvalue.design
 
 import android.support.design.widget.TextInputLayout
 import android.widget.TextView
-import io.taig.android.viewvalue.syntax.contramap._
-import io.taig.android.viewvalue.{ Attribute, Injection }
-import io.taig.android.viewvalue.Injection._
+import io.taig.android.viewvalue.base.injection._
+import io.taig.android.viewvalue.core.syntax.contramap._
+import io.taig.android.viewvalue.core.{ Attribute, Injection }
+import io.taig.android.viewvalue.core.Injection._
 
 trait injection {
     implicit val injectionErrorTextInputLayoutOptionCharSequence: Error[TextInputLayout, Option[CharSequence]] = {
