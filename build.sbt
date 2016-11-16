@@ -1,15 +1,13 @@
 lazy val root = project.in( file( "." ) )
     .settings( Settings.common )
     .settings(
-        name := "viewvalue",
-        publish := (),
-        publishLocal := (),
-        publishArtifact := false
+        name := "viewvalue"
     )
     .aggregate( core, base, design )
+    .dependsOn( core, base, design )
 
 lazy val core = project
-    .enablePlugins( AndroidLib )
+    .enablePlugins( AndroidJar )
     .settings( Settings.common ++ Settings.android )
     .settings(
         minSdkVersion := "1"
@@ -25,7 +23,7 @@ lazy val design = project
     .settings( Settings.common ++ Settings.android )
     .settings(
         libraryDependencies ++=
-            "com.android.support" % "design" % "24.2.0" ::
+            "com.android.support" % "design" % "24.2.1" ::
             Nil,
         minSdkVersion := "9"
     )
