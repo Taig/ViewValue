@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.4.0
+
+_2016-11-16_
+
+ * Upgrade to Android support library 25.0.1
+ * Provide implicits from root project
+ * Split core module into core and base modules
+ * Upgrade to sbt-android 1.7.1
+ * Upgrade to sbt-scalariform 1.7.1
+ * Upgrade to sbt 0.13.13
+
 ## 1.3.1
 
 _2016-09-02_

@@ -4,17 +4,23 @@
 
 ## Dependencies
 
-**Support for basic widgets** (such as `TextView`)
+Load modules individually …
 
-````scala
-"io.taig.android" %% "viewvalue-core" % "1.3.1"
-````
+```scala
+"io.taig.android" %% "viewvalue-core" % "1.4.0"
 
-**Support for design library widgets** (such as `TextInputLayout`)
+// Instances for Android SDK widgets
+"io.taig.android" %% "viewvalue-base" % "1.4.0"
 
-````scala
-"io.taig.android" %% "viewvalue-design" % "1.3.1"
-````
+// Instances for Android design library widgets
+"io.taig.android" %% "viewvalue-design" % "1.4.0"
+```
+
+… or load all modules and get one `implicits` import for all modules.
+
+```scala
+"io.taig.android" %% "viewvalue" % "1.4.0"
+```
 
 ## Usage
 
