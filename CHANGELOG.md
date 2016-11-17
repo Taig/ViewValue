@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.5.0
+
+_2016-11-17_
+
+ * Move everything into one module!
+   This enforces the `support-design` library, but avoids implicit ambiguities and does not require additional imports.
+
 ## 1.4.1
 
 _2016-11-16_
