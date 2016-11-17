@@ -1,4 +1,4 @@
-package io.taig.android.viewvalue.core
+package io.taig.android.viewvalue
 
 sealed trait Attribute
 

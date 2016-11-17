@@ -1,31 +1,29 @@
-lazy val root = project.in( file( "." ) )
-    .enablePlugins( AndroidLib )
-    .settings( Settings.common )
-    .settings(
-        name := "viewvalue"
-    )
-    .aggregate( core, base, design )
-    .dependsOn( core, base, design )
+enablePlugins( AndroidLib )
 
-lazy val core = project
-    .enablePlugins( AndroidJar )
-    .settings( Settings.common )
-    .settings(
-        minSdkVersion := "1"
-    )
+githubProject := "viewvalue"
 
-lazy val base = project
-    .enablePlugins( AndroidLib )
-    .settings( Settings.common )
-    .dependsOn( core )
+javacOptions ++=
+    "-source" :: "1.7" ::
+    "-target" :: "1.7" ::
+    Nil
 
-lazy val design = project
-    .enablePlugins( AndroidLib )
-    .settings( Settings.common )
-    .settings(
-        libraryDependencies ++=
-            "com.android.support" % "design" % "25.0.1" ::
-            Nil,
-        minSdkVersion := "9"
-    )
-    .dependsOn( base )
+libraryDependencies ++=
+    "com.android.support" % "design" % "25.0.1" ::
+    Nil
+
+minSdkVersion := "7"
+
+name := "viewvalue"
+
+organization := "io.taig.android"
+
+platformTarget := "android-24"
+
+scalaVersion := "2.11.8"
+
+scalacOptions ++=
+    "-feature" ::
+    "-deprecation" ::
+    Nil
+
+typedResources := false

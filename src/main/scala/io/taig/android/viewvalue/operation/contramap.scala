@@ -1,6 +1,6 @@
-package io.taig.android.viewvalue.core.operation
+package io.taig.android.viewvalue.operation
 
-import io.taig.android.viewvalue.core.functional.{ Contramap, ContramapL, ContramapR }
+import io.taig.android.viewvalue.functional.{ Contramap, ContramapL, ContramapR }
 
 import scala.language.higherKinds
 

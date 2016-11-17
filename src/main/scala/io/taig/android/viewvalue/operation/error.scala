@@ -1,7 +1,7 @@
-package io.taig.android.viewvalue.core.operation
+package io.taig.android.viewvalue.operation
 
 import android.view.View
-import io.taig.android.viewvalue.core.{ Extraction, Injection }
+import io.taig.android.viewvalue.{ Extraction, Injection }
 
 final class error[V <: View]( view: V ) {
     def error( implicit e: Extraction.Error[V] ): Option[String] = {

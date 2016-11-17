@@ -1,6 +1,6 @@
-package io.taig.android.viewvalue.core.operation
+package io.taig.android.viewvalue.operation
 
-import io.taig.android.viewvalue.core.functional.Map
+import io.taig.android.viewvalue.functional.Map
 
 import scala.language.higherKinds
 

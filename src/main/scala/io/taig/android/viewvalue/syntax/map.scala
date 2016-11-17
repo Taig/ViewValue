@@ -1,6 +1,6 @@
-package io.taig.android.viewvalue.core.syntax
+package io.taig.android.viewvalue.syntax
 
-import io.taig.android.viewvalue.core._
+import io.taig.android.viewvalue._
 
 import scala.language.{ implicitConversions, reflectiveCalls }
 

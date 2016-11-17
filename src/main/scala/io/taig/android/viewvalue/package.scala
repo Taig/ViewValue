@@ -1,11 +1,11 @@
-package io.taig.android.viewvalue
+package io.taig.android
 
 import android.support.design.widget.TextInputLayout
 import android.view.View
 
 import scala.annotation.tailrec
 
-package object design {
+package object viewvalue {
     @tailrec
     private[viewvalue] def findParentTextInputLayout( view: View ): Option[TextInputLayout] = {
         view.getParent match {

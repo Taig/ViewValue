@@ -1,8 +1,5 @@
 package io.taig.android.viewvalue
 
-trait implicits
-    extends core.implicits
-    with base.implicits
-    with design.implicits
+trait implicits extends syntax.all
 
 object implicits extends implicits
