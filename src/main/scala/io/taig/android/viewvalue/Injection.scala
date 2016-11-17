@@ -49,7 +49,7 @@ object Injection extends Injection0 {
         }
     }
 
-    implicit val injectionErrorTextViewOptionCharSequence: Error[TextView, Option[CharSequence]] = {
+    val injectionErrorTextViewOptionCharSequence: Error[TextView, Option[CharSequence]] = {
         instance( ( view, error ) ⇒ view.setError( error.orNull ) )
     }
 

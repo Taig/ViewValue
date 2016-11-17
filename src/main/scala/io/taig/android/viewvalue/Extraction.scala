@@ -45,7 +45,7 @@ object Extraction {
         }
     }
 
-    implicit val extractionErrorTextView: Error[TextView] = {
+    val extractionErrorTextView: Error[TextView] = {
         instance[Attribute.Error, TextView, CharSequence]( _.getError )
             .map( Option( _ ).map( _.toString ) )
     }
@@ -97,10 +97,12 @@ object Extraction {
     }
 
     implicit val extractionValueTextInputLayoutString: Value[TextInputLayout, String] = {
-        Extraction[Attribute.Value, TextView, String].contramap( _.getEditText )
+        Extraction[Attribute.Value, TextView, String]
+            .contramap( _.getEditText )
     }
 
     implicit val extractionValueTextInputLayoutOptionString: Value[TextInputLayout, Option[String]] = {
-        Extraction[Attribute.Value, TextView, Option[String]].contramap( _.getEditText )
+        Extraction[Attribute.Value, TextView, Option[String]]
+            .contramap( _.getEditText )
     }
 }
