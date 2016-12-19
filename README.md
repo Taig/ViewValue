@@ -5,7 +5,7 @@
 ## Dependencies
 
 ```scala
-"io.taig.android" %% "viewvalue" % "1.5.0-RC1"
+"io.taig.android" %% "viewvalue" % "1.5.0"
 ```
 
 ## Usage

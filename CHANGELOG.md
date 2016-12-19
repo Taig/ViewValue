@@ -2,6 +2,10 @@
 
 ## 1.5.0
 
+ * Upgrade to Android support library 25.1.0
+
+## 1.5.0-RC1
+
 _2016-11-17_
 
  * Move everything into one module!
